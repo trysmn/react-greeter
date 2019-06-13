@@ -1,26 +1,37 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// import Header from "./Header"
+// import NameChooser from "./NameChooser"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {inputName: "", displayName: ""}
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  handleChange(event) {
+    this.setState({inputName: event.target.value})
+  }
+
+  handleSubmit(event) {
+    event.preventDefault()
+    this.setState({displayName: this.state.inputName})
+    this.setState({inputName: ""})
+  }
+
+  render() {
+   return (
+      <div>
+        <h1>Greeting</h1>
+        <form onSubmit={this.handleSubmit}>
+            <input type="text" placeholder="Type your name..." value={this.state.inputName} onChange={this.handleChange} />
+            <button type="submit">Submit</button>
+        </form>
+        {this.state.displayName !== "" && <h2>Hello, {this.state.displayName}!</h2>}
+      </div>
+    ); 
+   }
 }
 
 export default App;
